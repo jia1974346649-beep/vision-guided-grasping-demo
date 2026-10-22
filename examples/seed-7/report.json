@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "seed": 7,
+  "case": "nominal",
+  "grasp_mode": "constraint-assisted; not contact-only",
+  "success": true,
+  "failure_reason": "",
+  "dt": 0.004166666666666667,
+  "steps": 619,
+  "simulated_seconds": 2.579167,
+  "estimated_center": [
+    0.515006929014856,
+    0.03641780367716181,
+    0.023828274626693687
+  ],
+  "true_center_initial": [
+    0.5137566826623267,
+    0.035749242087261796,
+    0.024990000000000002
+  ],
+  "true_center_final": [
+    0.5144959821104291,
+    0.03810865366138123,
+    0.24633125170651618
+  ],
+  "localization_error_m": 0.0018329474581902988,
+  "lift_height_m": 0.22134125170651617,
+  "maximum_lift_height_m": 0.22134125170651617,
+  "constraint_creation_displacement_m": 0.0,
+  "ik_iterations": 22,
+  "stage_events": [
+    {
+      "stage": "detect",
+      "step": 60,
+      "simulated_seconds": 0.25
+    },
+    {
+      "stage": "approach",
+      "step": 60,
+      "simulated_seconds": 0.25
+    },
+    {
+      "stage": "descend",
+      "step": 163,
+      "simulated_seconds": 0.679167
+    },
+    {
+      "stage": "grasp",
+      "step": 267,
+      "simulated_seconds": 1.1125
+    },
+    {
+      "stage": "lift",
+      "step": 387,
+      "simulated_seconds": 1.6125
+    },
+    {
+      "stage": "hold",
+      "step": 499,
+      "simulated_seconds": 2.079167
+    },
+    {
+      "stage": "done",
+      "step": 619,
+      "simulated_seconds": 2.579167
+    }
+  ],
+  "initial_pose": "PyBullet built-in IK initialization; subsequent targets use manual pose DLS",
+  "center_estimation": "known-radius sphere, overhead camera; 3x3 centroid-depth patch unprojection minus radius along world Z",
+  "software": {
+    "python": "3.9.2",
+    "numpy": "1.26.4",
+    "pybullet": "3.2.7",
+    "Pillow": "11.3.0"
+  }
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>视觉抓取仿真 · 匿名演示报告</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23143c36'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23d1f1d9'/%3E%3C/svg%3E">
+<style>
+:root{font:16px/1.8 system-ui,"Noto Sans CJK SC","Microsoft YaHei",sans-serif;color:#183d36;background:#f2f5ef}*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:36px 24px}h1{font-size:32px;line-height:1.4;margin:8px 0 12px}h2{font-size:20px;margin:0 0 12px}p{margin:8px 0}.eyebrow{font-size:12px;letter-spacing:.15em;color:#48796c}.notice{background:#e5eee2;border-left:4px solid #42806b;padding:18px 22px;border-radius:8px;margin:24px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}section,.metric{background:white;border:1px solid #dce5d8;border-radius:14px;padding:24px;margin-bottom:20px;min-width:0}.metric strong{display:block;font-size:25px}.metric span{font-size:14px;color:#627969}.replay{display:block;width:100%;max-width:640px;margin:auto;border-radius:9px}.overview{width:100%;height:auto}a{color:#156c56;text-underline-offset:3px}nav{display:flex;gap:20px;flex-wrap:wrap}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #e0e7da;text-align:left;padding:8px}pre{font:13px/1.7 monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f7f0;padding:18px;border-radius:8px}.muted{color:#627969;font-size:14px}@media(max-width:650px){main{padding:24px 16px}.grid{grid-template-columns:1fr}h1{font-size:27px}section,.metric{padding:18px}}
+</style>
+<main><p class="eyebrow">VISION → CONTROL → EVIDENCE</p><h1>视觉引导机器人抓取仿真</h1>
+<p>固定种子 7 · 场景 nominal · 完成（辅助夹持）</p>
+<div class="notice"><strong>这是 PyBullet 合成场景，使用固定约束辅助夹持。</strong><p>真实渲染图像用于定位，手写 DLS 与 PID 驱动机械臂。辅助约束承担附着，结果不表示接触摩擦抓取或真实机器人已经验证。</p></div>
+<div class="grid"><div class="metric"><span>球心估计误差</span><strong>1.83 mm</strong></div><div class="metric"><span>相对初始提升高度</span><strong>22.13 cm</strong></div><div class="metric"><span>物理仿真时间</span><strong>2.58 s</strong></div></div>
+<section><h2>本次运行回放</h2><img class="replay" src="../../assets/preview.gif" alt="合成场景中的视觉抓取阶段回放"><p class="muted">采样回放用于说明过程，包含额外阶段帧；播放时长不用于测量运行性能。</p></section>
+<section><h2>阶段对照</h2><img class="overview" src="../../assets/overview.png" alt="检测、接近、下降、夹持、提升和保持阶段"><table><thead><tr><th>状态</th><th>物理步数</th></tr></thead><tbody><tr><td>detect</td><td>60</td></tr><tr><td>approach</td><td>60</td></tr><tr><td>descend</td><td>163</td></tr><tr><td>grasp</td><td>267</td></tr><tr><td>lift</td><td>387</td></tr><tr><td>hold</td><td>499</td></tr><tr><td>done</td><td>619</td></tr></tbody></table></section>
+<section><h2>结果与边界</h2><p>状态原因：已满足当前辅助夹持场景的提升与保持条件</p><p>相机正上方、已知球半径、固定光照和受限工作区是本演示的前提。场景真值用于误差评估及辅助约束建立，不用于运动目标规划。</p><nav><a href="report.json">原始运行指标 JSON</a><a href="trajectory.csv">采样轨迹 CSV</a></nav><details><summary>查看完整运行记录</summary><pre>{
+  &quot;schema_version&quot;: 1,
+  &quot;seed&quot;: 7,
+  &quot;case&quot;: &quot;nominal&quot;,
+  &quot;grasp_mode&quot;: &quot;constraint-assisted; not contact-only&quot;,
+  &quot;success&quot;: true,
+  &quot;failure_reason&quot;: &quot;&quot;,
+  &quot;dt&quot;: 0.004166666666666667,
+  &quot;steps&quot;: 619,
+  &quot;simulated_seconds&quot;: 2.579167,
+  &quot;estimated_center&quot;: [
+    0.515006929014856,
+    0.03641780367716181,
+    0.023828274626693687
+  ],
+  &quot;true_center_initial&quot;: [
+    0.5137566826623267,
+    0.035749242087261796,
+    0.024990000000000002
+  ],
+  &quot;true_center_final&quot;: [
+    0.5144959821104291,
+    0.03810865366138123,
+    0.24633125170651618
+  ],
+  &quot;localization_error_m&quot;: 0.0018329474581902988,
+  &quot;lift_height_m&quot;: 0.22134125170651617,
+  &quot;maximum_lift_height_m&quot;: 0.22134125170651617,
+  &quot;constraint_creation_displacement_m&quot;: 0.0,
+  &quot;ik_iterations&quot;: 22,
+  &quot;stage_events&quot;: [
+    {
+      &quot;stage&quot;: &quot;detect&quot;,
+      &quot;step&quot;: 60,
+      &quot;simulated_seconds&quot;: 0.25
+    },
+    {
+      &quot;stage&quot;: &quot;approach&quot;,
+      &quot;step&quot;: 60,
+      &quot;simulated_seconds&quot;: 0.25
+    },
+    {
+      &quot;stage&quot;: &quot;descend&quot;,
+      &quot;step&quot;: 163,
+      &quot;simulated_seconds&quot;: 0.679167
+    },
+    {
+      &quot;stage&quot;: &quot;grasp&quot;,
+      &quot;step&quot;: 267,
+      &quot;simulated_seconds&quot;: 1.1125
+    },
+    {
+      &quot;stage&quot;: &quot;lift&quot;,
+      &quot;step&quot;: 387,
+      &quot;simulated_seconds&quot;: 1.6125
+    },
+    {
+      &quot;stage&quot;: &quot;hold&quot;,
+      &quot;step&quot;: 499,
+      &quot;simulated_seconds&quot;: 2.079167
+    },
+    {
+      &quot;stage&quot;: &quot;done&quot;,
+      &quot;step&quot;: 619,
+      &quot;simulated_seconds&quot;: 2.579167
+    }
+  ],
+  &quot;initial_pose&quot;: &quot;PyBullet built-in IK initialization; subsequent targets use manual pose DLS&quot;,
+  &quot;center_estimation&quot;: &quot;known-radius sphere, overhead camera; 3x3 centroid-depth patch unprojection minus radius along world Z&quot;,
+  &quot;software&quot;: {
+    &quot;python&quot;: &quot;3.9.2&quot;,
+    &quot;numpy&quot;: &quot;1.26.4&quot;,
+    &quot;pybullet&quot;: &quot;3.2.7&quot;,
+    &quot;Pillow&quot;: &quot;11.3.0&quot;
+  }
+}</pre></details></section>
+<p class="muted">独立匿名作品集演示 · 合成数据 · 模型由 PyBullet 数据依赖提供</p></main></html>
