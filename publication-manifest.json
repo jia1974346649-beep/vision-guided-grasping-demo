@@ -7,7 +7,7 @@
     },
     {
       "path": ".github/workflows/demo.yml",
-      "sha256": "3742e5b58267ed6118c55e1a198f1c6edb1c4dc311cc8258a74029d17c0c5c10"
+      "sha256": "f53ce52474284182c64226b9fa3ab87e117d4021ae859e2afd025ea936be88c6"
     },
     {
       "path": ".gitignore",
